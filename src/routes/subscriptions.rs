@@ -38,7 +38,7 @@ pub async fn subscribe(form: web::Form<FormData>, pool: web::Data<PgPool>) -> Ht
         Ok(_) => {
             tracing::info!(
                 "request_id {} - New subscriber details have been saved.",
-                request_id, 
+                request_id,
             );
             HttpResponse::Ok().finish()
         }
