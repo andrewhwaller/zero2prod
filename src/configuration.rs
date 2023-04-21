@@ -7,6 +7,7 @@ use sqlx::postgres::PgConnectOptions;
 use sqlx::postgres::PgSslMode;
 use sqlx::ConnectOptions;
 
+#[derive(Clone)]
 #[derive(serde::Deserialize)]
 pub struct Settings {
     pub database: DatabaseSettings,
@@ -14,6 +15,7 @@ pub struct Settings {
     pub email_client: EmailClientSettings,
 }
 
+#[derive(Clone)]
 #[derive(serde::Deserialize)]
 pub struct EmailClientSettings {
     pub base_url: String,
@@ -32,6 +34,7 @@ impl EmailClientSettings {
     }
 }
 
+#[derive(Clone)]
 #[derive(serde::Deserialize)]
 pub struct ApplicationSettings {
     #[serde(deserialize_with = "deserialize_number_from_string")]
@@ -39,6 +42,7 @@ pub struct ApplicationSettings {
     pub host: String,
 }
 
+#[derive(Clone)]
 #[derive(serde::Deserialize)]
 pub struct DatabaseSettings {
     pub username: String,
