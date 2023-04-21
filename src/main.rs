@@ -1,10 +1,10 @@
 //! src/main.rs
 use sqlx::postgres::PgPoolOptions;
 use std::net::TcpListener;
-use zero2prod::configuration::{get_configuration};
+use zero2prod::configuration::get_configuration;
+use zero2prod::email_client::EmailClient;
 use zero2prod::startup::run;
 use zero2prod::telemetry::{get_subscriber, init_subscriber};
-use zero2prod::email_client::EmailClient;
 
 #[tokio::main]
 async fn main() -> Result<(), std::io::Error> {
@@ -16,7 +16,9 @@ async fn main() -> Result<(), std::io::Error> {
         .acquire_timeout(std::time::Duration::from_secs(2))
         .connect_lazy_with(configuration.database.with_db());
 
-    let sender_email = configuration.email_client.sender()
+    let sender_email = configuration
+        .email_client
+        .sender()
         .expect("Invalid sender email address.");
 
     let timeout = configuration.email_client.timeout();
